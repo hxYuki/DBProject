@@ -1,0 +1,11 @@
+.wrapper, .editor{
+    min-height: 600px;
+}
+
+.wrapper{
+    background-color: #fff;
+}
+
+.editor{
+    padding: 0 10px;
+}
