@@ -39,6 +39,9 @@ import NewDraft from "./subpages/NewDraft";
 import ViewNews from "./subpages/ViewNews";
 import DraftList from './subpages/DraftList';
 import Publications from "./subpages/Publications";
+import Management from "./adminpages/Management";
+import Profile from "./adminpages/Profile";
+import Review from "./adminpages/Review";
 
 function ListItemLink(props) {
   const { icon, primary, to } = props;
@@ -261,9 +264,15 @@ function Main() {
             <Route path={`/publication`}>
               <Publications />
             </Route>
-            <Route path={`/management`}>management</Route>
-            <Route path={`/review`}>review</Route>
-            <Route path={`/profile`}>profile</Route>
+            <Route path={`/management`}>
+              <Management />
+            </Route>
+            <Route path={`/review`}>
+              <Review />
+            </Route>
+            <Route path={`/profile`}>
+              <Profile />
+            </Route>
             <Route path={[`/`,'/view']}>
               <ViewNews />
             </Route>
