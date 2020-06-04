@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql.local",
+      "connectionId": "EditorContext"
+    },
+    "mssql2": {
+      "type": "mssql.local",
+      "connectionId": "ImageContext"
+    },
+    "mssql3": {
+      "type": "mssql.local",
+      "connectionId": "NewsContext"
+    }
+  }
+}

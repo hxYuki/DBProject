@@ -13,7 +13,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Tooltip,
+  Button,
 } from "@material-ui/core";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
@@ -34,6 +34,7 @@ import {
   Switch,
   Link as RouterLink,
   useRouteMatch,
+  useHistory,
 } from "react-router-dom";
 import NewDraft from "./subpages/NewDraft";
 import ViewNews from "./subpages/ViewNews";
@@ -42,6 +43,8 @@ import Publications from "./subpages/Publications";
 import Management from "./adminpages/Management";
 import Profile from "./adminpages/Profile";
 import Review from "./adminpages/Review";
+
+import TokenInfo from '../store/LoginStore';
 
 function ListItemLink(props) {
   const { icon, primary, to } = props;
@@ -137,11 +140,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Main() {
+  let history = useHistory();
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
   const theme = useTheme();
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+
+  const handleLogout=()=>{
+    TokenInfo.signout();
+
+    history.push('/Login')
+  }
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -172,9 +180,10 @@ function Main() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
+            <Typography variant="h6" noWrap style={{flexGrow:1}}>
               新闻发布管理系统
             </Typography>
+            <Button onClick={handleLogout} color="inherit">注销</Button>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -255,8 +264,8 @@ function Main() {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>
-            <Route path={[`/new/:draftId`,'/new']}>
-              <NewDraft />
+            <Route path={[`/new/:draftId`,'/new']} component={NewDraft}>
+              
             </Route>
             <Route path={`/drafts`}>
               <DraftList />
