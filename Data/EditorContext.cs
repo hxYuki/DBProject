@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,5 +15,11 @@ namespace DBProject.Data
         }
 
         public DbSet<DBProject.Models.Editor> Editor { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Editor>()
+                        .Property<long>("CertId")
+                        .HasComputedColumnSql("10000 + [JournalistId]");
+        }
     }
 }

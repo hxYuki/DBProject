@@ -36,7 +36,8 @@ namespace DBProject.Services
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenManagement.Secret));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var jwtToken = new JwtSecurityToken(_tokenManagement.Issuer, _tokenManagement.Audience, claims, expires: DateTime.Now.AddMinutes(_tokenManagement.AccessExpiration), signingCredentials: credentials);
+            var exp = DateTime.UtcNow.AddMinutes(_tokenManagement.AccessExpiration);
+            var jwtToken = new JwtSecurityToken(_tokenManagement.Issuer, _tokenManagement.Audience, claims, expires: exp.ToUniversalTime(), signingCredentials: credentials);
 
             token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
 

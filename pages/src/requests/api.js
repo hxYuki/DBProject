@@ -6,6 +6,6 @@ export default axios.create({
     headers: {
         "Authorization": "Bearer " + token.getToken().token,
         'uid': token.getToken().user.journalistId || token.getToken().user.editorId,
-        'isEditor': (token.getToken().user.journalistId ? false : true)
+        'isEditor': (token.getToken().user.journalistId==null ? true : false)
     }
 })

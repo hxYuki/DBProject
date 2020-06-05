@@ -3,14 +3,16 @@ using DBProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DBProject.Migrations
+namespace DBProject.Migrations.Editor
 {
-    [DbContext(typeof(JournalistContext))]
-    partial class JournalistContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(EditorContext))]
+    [Migration("20200605055147_longedtId")]
+    partial class longedtId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -18,9 +20,9 @@ namespace DBProject.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DBProject.Models.Journalist", b =>
+            modelBuilder.Entity("DBProject.Models.Editor", b =>
                 {
-                    b.Property<long>("JournalistId")
+                    b.Property<long>("EditorId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -31,11 +33,8 @@ namespace DBProject.Migrations
                     b.Property<string>("Age")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Banished")
-                        .HasColumnType("bit");
-
                     b.Property<long>("CertId")
-                        .ValueGeneratedOnAdd()
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("bigint")
                         .HasComputedColumnSql("10000 + [JournalistId]");
 
@@ -54,12 +53,15 @@ namespace DBProject.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Permission")
+                        .HasColumnType("int");
+
                     b.Property<string>("Phonenumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("JournalistId");
+                    b.HasKey("EditorId");
 
-                    b.ToTable("Journalists");
+                    b.ToTable("Editor");
                 });
 #pragma warning restore 612, 618
         }

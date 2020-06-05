@@ -34,14 +34,14 @@ namespace DBProject.Controllers
         [HttpGet("view")]
         public async Task<ActionResult<IEnumerable<object>>> GetNews()
         {
-            var news = from n in _context.News where n.Status == 1 select new { n.Abstract, n.PublishTime, n.Title};
+            var news = from n in _context.News where n.Status == 1 select new { n.Abstract, n.PublishTime, n.Title, n.NewsId };
             return await news.ToListAsync();
         }
         
         [Microsoft.AspNetCore.Authorization.AllowAnonymous]
         // GET: api/News/5
         [HttpGet("view/{id}")]
-        public async Task<ActionResult<object>> GetNews(int id)
+        public ActionResult<object> GetNews(int id)
         {
             var uid = int.Parse(_httpContextAccessor.HttpContext.Request.Headers["uid"]);
             var isEditor = bool.Parse(_httpContextAccessor.HttpContext.Request.Headers["isEditor"]);
@@ -62,7 +62,7 @@ namespace DBProject.Controllers
             return await news.ToListAsync();
         }
         [HttpGet("draft/{id}")]
-        public async Task<ActionResult<News>> GetDraft(int id)
+        public ActionResult<News> GetDraft(int id)
         {
             var uid = int.Parse(_httpContextAccessor.HttpContext.Request.Headers["uid"]);
             var news = (from n in _context.News where n.NewsId == id && n.JournalistId == uid select n).FirstOrDefault();

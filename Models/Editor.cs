@@ -7,7 +7,7 @@ namespace DBProject.Models
 {
     public class Editor
     {
-        public int EditorId { get; set; }
+        public long EditorId { get; set; }
         public string Name { get; set; }
         public string Age { get; set; }
         public GenderEnum Gender { get; set; }

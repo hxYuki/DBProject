@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   List,
@@ -46,8 +46,8 @@ export default withStyles(styles)(class ViewNewsClass extends React.Component{
       <Box>
       <Router>
         <Switch>
-          <Route path={`/view/:newsId`} component={NewsClass}>
-            {/* <News/> */}
+          <Route path={`/view/:newsId`}>
+            <News/>
           </Route>
           <Route path={'/'}>
             <List>
@@ -176,25 +176,21 @@ class NewsClass extends React.Component{
 
 function News(){
     const {newsId} = useParams();
-    const news = {
-        Id: 0,
-        Title: "title1",
-        Abstract:
-          "asodfjiasdfoahjsdofihaosidfhoiahsdofihoaisdhfioahsodifhoiahsdfoih",
-        Content:"<p>aoihfusdddddddddweflabsdkfhgaiksudgyfuyagsdiufygauiosydgfuyagsduyfgauisydgfuiaygsidufguiasydgfuiy</p>",
-        HeadImage: "",
-        PublishTime: 1591155637000,
-      }
-    console.log(newsId)
+    const [news, setNews] = useState({});
+    useEffect(()=>{
+      api.get(`News/view/${newsId}`).then(res=>{
+        setNews(res.data)
+      })
+    },[])
     return(
         <Paper style={{padding:20}}>
             <Typography gutterBottom variant="h1">
-                {news.Title}
+                {news.title}
             </Typography>
             <Typography gutterBottom variant='caption' align='right' >
-                {new Date(news.PublishTime).toDateString()}
+                {new Date(news.publishTime).toDateString()}
             </Typography>
-            <Typography variant='body1' dangerouslySetInnerHTML={{__html:news.Content}}>
+            <Typography variant='body1' dangerouslySetInnerHTML={{__html:news.content}}>
 
             </Typography>
         </Paper>

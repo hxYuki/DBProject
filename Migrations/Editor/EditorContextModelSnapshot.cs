@@ -20,9 +20,9 @@ namespace DBProject.Migrations.Editor
 
             modelBuilder.Entity("DBProject.Models.Editor", b =>
                 {
-                    b.Property<int>("EditorId")
+                    b.Property<long>("EditorId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
@@ -32,7 +32,9 @@ namespace DBProject.Migrations.Editor
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("CertId")
-                        .HasColumnType("bigint");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("bigint")
+                        .HasComputedColumnSql("10000 + [JournalistId]");
 
                     b.Property<string>("EmailAddress")
                         .HasColumnType("nvarchar(max)");

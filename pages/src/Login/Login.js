@@ -81,7 +81,7 @@ function Login() {
                     justify="space-between"
                   >
                     <FormControlLabel
-                      label={"记者登录"}
+                      label={form.isEditor?"主编登录":"记者登录"}
                       labelPlacement="start"
                       control={
                         <Switch

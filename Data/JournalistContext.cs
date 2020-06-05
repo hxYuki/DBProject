@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DBProject.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace DBProject.Data
 {
@@ -15,5 +16,12 @@ namespace DBProject.Data
         }
 
         public DbSet<Journalist> Journalists { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Journalist>()
+                        .Property<long>("CertId")
+                        .HasComputedColumnSql("10000 + [JournalistId]");
+        }
     }
 }

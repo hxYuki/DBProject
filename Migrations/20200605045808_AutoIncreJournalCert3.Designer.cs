@@ -3,14 +3,16 @@ using DBProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DBProject.Migrations
 {
     [DbContext(typeof(JournalistContext))]
-    partial class JournalistContextModelSnapshot : ModelSnapshot
+    [Migration("20200605045808_AutoIncreJournalCert3")]
+    partial class AutoIncreJournalCert3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,9 +22,9 @@ namespace DBProject.Migrations
 
             modelBuilder.Entity("DBProject.Models.Journalist", b =>
                 {
-                    b.Property<long>("JournalistId")
+                    b.Property<int>("JournalistId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
+                        .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
@@ -37,7 +39,7 @@ namespace DBProject.Migrations
                     b.Property<long>("CertId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasComputedColumnSql("10000 + [JournalistId]");
+                        .HasComputedColumnSql("10000 + ', ' + [JournalistId]");
 
                     b.Property<string>("EmailAddress")
                         .HasColumnType("nvarchar(max)");
